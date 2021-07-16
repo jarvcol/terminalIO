@@ -15,6 +15,7 @@ target
 *.zip
 *.tar.gz
 *.rar
+*.DS_Store
 
 ### IntelliJ IDEA ###
 .idea

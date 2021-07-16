@@ -71,4 +71,14 @@ public class BasePage {
     protected void acceptAlert(){
         driver.switchTo().alert().accept();
     }
+
+    protected void acceptCookies(){
+        getWait().until(ExpectedConditions.elementToBeClickable(By.id("onetrust-accept-btn-handler")));
+        getDriver().findElement(By.id("onetrust-accept-btn-handler")).click();
+    }
+
+    protected void jsExecution(WebElement element){
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("arguments[0].click();", element);
+    }
 }
