@@ -4,6 +4,7 @@ import com.terminalio.sitetracker.pageObjects.BasePage;
 import com.terminalio.sitetracker.pageObjects.HeaderPage;
 import com.terminalio.sitetracker.pageObjects.filters.FilterPage;
 import com.terminalio.sitetracker.util.PageObjectManager;
+import com.terminalio.sitetracker.util.TestContext;
 import com.terminalio.sitetracker.util.UrlSetUp;
 import gherkin.lexer.Pa;
 import org.openqa.selenium.WebDriver;
@@ -14,13 +15,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class DocsPage extends BasePage {
 
-    public DocsPage(WebDriver driver){
+    public DocsPage(WebDriver driver, PageObjectManager pageObjectManager){
         super(driver);
         PageFactory.initElements(driver, this);
-        headerPage = PageObjectManager.getHeaderPage();
-        filterPage = PageObjectManager.getFilterPage();
+        this.pageObjectManager = pageObjectManager;
+        headerPage = pageObjectManager.getHeaderPage();
+        filterPage = pageObjectManager.getFilterPage();
     }
 
+    private PageObjectManager pageObjectManager;
     private HeaderPage headerPage;
     private FilterPage filterPage;
     private DocsResultsBody docsResultsBody;
@@ -47,7 +50,7 @@ public class DocsPage extends BasePage {
 
     public void clickComponentsFilter(String input){
         filterPage.clickOnComponentFilterResult(input);
-        docsResultsBody = PageObjectManager.getDataTableResults();
+        docsResultsBody = pageObjectManager.getDataTableResults();
     }
 
     public DocsResultsBody getDocsResultsBody(){
