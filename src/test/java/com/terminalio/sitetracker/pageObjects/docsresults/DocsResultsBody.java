@@ -55,6 +55,7 @@ public abstract class DocsResultsBody extends BasePage {
 
     public abstract void updateResultsTableRowColumn(String rowNumber, String columnName, String newValue);
 
-    public abstract boolean checkUpdateResultsTableRowColumn(String rowNumber);
+    public abstract boolean checkUpdateResultsTableRowColumnCount(String rowNumber);
 
+    public abstract boolean checkUpdateResultsTableRowColumn(String rowNumber, String columnName, String expectedValue);
 }

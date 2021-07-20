@@ -1,7 +1,7 @@
 package com.terminalio.sitetracker.util;
 
 import com.terminalio.sitetracker.pageObjects.HeaderPage;
-import com.terminalio.sitetracker.pageObjects.docsresults.DataTableResults;
+import com.terminalio.sitetracker.pageObjects.docsresults.DataTableInLineEditResults;
 import com.terminalio.sitetracker.pageObjects.docsresults.DocsPage;
 import com.terminalio.sitetracker.pageObjects.filters.FilterPage;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +11,7 @@ public class PageObjectManager {
     private WebDriver driver;
     private HeaderPage headerPage;
     private FilterPage filterPage;
-    private DataTableResults dataTableResults;
+    private DataTableInLineEditResults dataTableResults;
     private DocsPage docsPage;
 
     public PageObjectManager(WebDriver driver) {
@@ -26,8 +26,8 @@ public class PageObjectManager {
         return (filterPage == null) ? filterPage = new FilterPage(driver) : filterPage;
     }
 
-    public DataTableResults getDataTableResults() {
-        return (dataTableResults == null) ? dataTableResults = new DataTableResults(driver) : dataTableResults;
+    public DataTableInLineEditResults getDataTableResults() {
+        return (dataTableResults == null) ? dataTableResults = new DataTableInLineEditResults(driver) : dataTableResults;
     }
 
     public DocsPage getDocsPage() {

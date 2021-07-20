@@ -59,11 +59,12 @@ public class DataTableDocsSteps {
 
     @Then("table results are updated for row (.*)")
     public void resultsTableIsUpdated(String rowNumber) {
-        Assert.assertTrue("Value was not updated", docsPage.getDocsResultsBody().checkUpdateResultsTableRowColumn(rowNumber));
-        /*for (int i=0; i<dataTable.asLists().get(0).size(); i++){
-            Assert.assertTrue("Value was not updated", docsPage.getDocsResultsBody().
+        Assert.assertTrue("Values were not updated", docsPage.getDocsResultsBody().checkUpdateResultsTableRowColumnCount(rowNumber));
+
+        for (int i=0; i<dataTable.asLists().get(0).size(); i++){
+            Assert.assertTrue("Value "+dataTable.asLists().get(0).get(i)+" was not updated", docsPage.getDocsResultsBody().
                     checkUpdateResultsTableRowColumn(rowNumber, dataTable.asLists().get(0).get(i),
                             dataTable.asLists().get(1).get(i)));
-        }*/
+        }
     }
 }
