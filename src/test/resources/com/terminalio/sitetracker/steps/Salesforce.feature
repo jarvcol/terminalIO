@@ -11,6 +11,6 @@ Feature: Salesforce feature
     And the user specifies the Data Table with Inline Edit type of data table
     And the user runs the datatable
     And the user updates the value from row 3
-      | Label      | Website            | Phone number   | CloseAt         | Balance |
+      | Label      | Website            | Phone          | CloseAt         | Balance |
       | Larry Page | https://google.com | (555)-755-6575 | Today, 12:57 PM | 770.54  |
     Then table results are updated for row 3

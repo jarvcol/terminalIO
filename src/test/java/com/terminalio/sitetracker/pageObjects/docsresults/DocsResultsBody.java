@@ -15,9 +15,10 @@ public abstract class DocsResultsBody extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    //private String waitSpinnerLocator = "lightning-spinner.slds-spinner_container";
     private String selectDataTableTypeSelector = ".//input[@role='combobox']";
     private String selectDataTableTypeOptionsLocator = ".//lightning-base-combobox-item//span[@title='{replace}']";
+    protected String iframeGenericLocator = ".//iframe[@name='preview']";
+    private String tableWaitLocator = ".//lightning-datatable//table//tr[1]//*[@data-label='Label']//span";
 
     @FindBy(xpath=".//button[contains(text(), 'Run')]")
     private WebElement runButton;
@@ -32,8 +33,18 @@ public abstract class DocsResultsBody extends BasePage {
     }
 
     public void selectDataTableType(String tableType){
+        WebElement firstIframe = getDriver().findElements(By.xpath(iframeGenericLocator)).get(0);
+        getDriver().switchTo().frame(firstIframe);
+        WebElement secondIframe = getDriver().findElements(By.xpath(iframeGenericLocator)).get(0);
+        getDriver().switchTo().frame(secondIframe);
+
+        getWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(tableWaitLocator)));
+
+        getDriver().switchTo().defaultContent();
+
         getWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(selectDataTableTypeSelector)));
-        super.jsCLickExecution(getDriver().findElement(By.xpath(selectDataTableTypeSelector)));
+        //super.jsCLickExecution(getDriver().findElement(By.xpath(selectDataTableTypeSelector)));
+        getDriver().findElement(By.xpath(selectDataTableTypeSelector)).click();
         getWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(getSelectDataTableTypeOptionsLocator(tableType))));
         getDriver().findElement(By.xpath(getSelectDataTableTypeOptionsLocator(tableType))).click();
     }
@@ -44,6 +55,6 @@ public abstract class DocsResultsBody extends BasePage {
 
     public abstract void updateResultsTableRowColumn(String rowNumber, String columnName, String newValue);
 
-    public abstract boolean checkUpdateResultsTableRowColumn(String rowNumber, String columnName, String newValue);
+    public abstract boolean checkUpdateResultsTableRowColumn(String rowNumber);
 
 }
