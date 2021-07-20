@@ -32,7 +32,7 @@ public class WebDriverSetup {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("start-maximized");
                 options.addArguments("enable-automation");
-                options.addArguments("--no-sandbox");
+/*                options.addArguments("--no-sandbox");
                 options.addArguments("--disable-infobars");
                 options.addArguments("--disable-dev-shm-usage");
                 options.addArguments("--disable-browser-side-navigation");
@@ -40,6 +40,7 @@ public class WebDriverSetup {
                 options.addArguments("--incognito");
                 options.addArguments("--disable-cache");
                 options.addArguments("--disable-notifications");
+                options.addArguments("--enable-potentially-annoying-security-features");*/
                 driver = new ChromeDriver(options);
                 driver.manage().window().maximize();
                 break;

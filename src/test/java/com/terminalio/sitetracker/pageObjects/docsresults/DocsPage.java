@@ -4,9 +4,7 @@ import com.terminalio.sitetracker.pageObjects.BasePage;
 import com.terminalio.sitetracker.pageObjects.HeaderPage;
 import com.terminalio.sitetracker.pageObjects.filters.FilterPage;
 import com.terminalio.sitetracker.util.PageObjectManager;
-import com.terminalio.sitetracker.util.TestContext;
 import com.terminalio.sitetracker.util.UrlSetUp;
-import gherkin.lexer.Pa;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,7 +39,7 @@ public class DocsPage extends BasePage {
 
     public void clickOnComponentRef(){
         getWait().until(ExpectedConditions.elementToBeClickable(compReferenceLink));
-        super.jsExecution(compReferenceLink);
+        super.jsCLickExecution(compReferenceLink);
     }
 
     public FilterPage getFilterPage(){

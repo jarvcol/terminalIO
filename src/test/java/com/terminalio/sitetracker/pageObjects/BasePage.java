@@ -77,7 +77,7 @@ public class BasePage {
         getDriver().findElement(By.id("onetrust-accept-btn-handler")).click();
     }
 
-    protected void jsExecution(WebElement element){
+    protected void jsCLickExecution(WebElement element){
         JavascriptExecutor executor = (JavascriptExecutor)driver;
         executor.executeScript("arguments[0].click();", element);
     }
