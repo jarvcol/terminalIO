@@ -29,18 +29,7 @@ public class WebDriverSetup {
                 break;
             case chrome :
                 WebDriverManager.chromedriver().browserVersion("87.0.4280.141").setup();
-                ChromeOptions options = new ChromeOptions();
-                options.addArguments("start-maximized");
-                options.addArguments("enable-automation");
-                options.addArguments("--no-sandbox");
-                options.addArguments("--disable-infobars");
-                options.addArguments("--disable-dev-shm-usage");
-                options.addArguments("--disable-browser-side-navigation");
-                options.addArguments("--disable-gpu");
-                options.addArguments("--incognito");
-                options.addArguments("--disable-cache");
-                options.addArguments("--disable-notifications");
-                driver = new ChromeDriver(options);
+                driver = new ChromeDriver();
                 driver.manage().window().maximize();
                 break;
             case ie : driver = new InternetExplorerDriver();

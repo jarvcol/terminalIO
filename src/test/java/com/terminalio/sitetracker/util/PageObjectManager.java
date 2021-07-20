@@ -8,30 +8,30 @@ import org.openqa.selenium.WebDriver;
 
 public class PageObjectManager {
 
-    private static WebDriver driver;
-    private static HeaderPage headerPage;
-    private static FilterPage filterPage;
-    private static DataTableResults dataTableResults;
-    private static DocsPage docsPage;
+    private WebDriver driver;
+    private HeaderPage headerPage;
+    private FilterPage filterPage;
+    private DataTableResults dataTableResults;
+    private DocsPage docsPage;
 
     public PageObjectManager(WebDriver driver) {
         this.driver = driver;
     }
 
-    public static HeaderPage getHeaderPage() {
+    public HeaderPage getHeaderPage() {
         return (headerPage == null) ? headerPage = new HeaderPage(driver) : headerPage;
     }
 
-    public static FilterPage getFilterPage() {
+    public FilterPage getFilterPage() {
         return (filterPage == null) ? filterPage = new FilterPage(driver) : filterPage;
     }
 
-    public static DataTableResults getDataTableResults() {
+    public DataTableResults getDataTableResults() {
         return (dataTableResults == null) ? dataTableResults = new DataTableResults(driver) : dataTableResults;
     }
 
-    public static DocsPage getDocsPage() {
-        return (docsPage == null) ? docsPage = new DocsPage(driver) : docsPage;
+    public DocsPage getDocsPage() {
+        return (docsPage == null) ? docsPage = new DocsPage(driver, this) : docsPage;
     }
 
 }
