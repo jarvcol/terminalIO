@@ -7,9 +7,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class DataTableResults extends DocsResultsBody {
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
-    public DataTableResults(WebDriver driver){
+public class DataTableInLineEditResults extends DocsResultsBody {
+
+    public DataTableInLineEditResults(WebDriver driver){
         super(driver);
         PageFactory.initElements(driver, this);
     }
@@ -45,7 +49,7 @@ public class DataTableResults extends DocsResultsBody {
     }
 
     @Override
-    public boolean checkUpdateResultsTableRowColumn(String rowNumber) {
+    public boolean checkUpdateResultsTableRowColumnCount(String rowNumber) {
         WebElement firstIframe = getDriver().findElements(By.xpath(iframeGenericLocator)).get(0);
         getDriver().switchTo().frame(firstIframe);
 
@@ -55,25 +59,38 @@ public class DataTableResults extends DocsResultsBody {
         getDriver().switchTo().defaultContent();
         return checkResult;
     }
-    /*public boolean checkUpdateResultsTableRowColumn(String rowNumber, String columnName, String newValue) {
+
+    public boolean checkUpdateResultsTableRowColumn(String rowNumber, String columnName, String expectedValue) {
         WebElement firstIframe = getDriver().findElements(By.xpath(iframeGenericLocator)).get(0);
         getDriver().switchTo().frame(firstIframe);
 
         WebElement secondIframe = getDriver().findElements(By.xpath(iframeGenericLocator)).get(0);
         getDriver().switchTo().frame(secondIframe);
 
-        return getDriver().findElement(By.xpath(
-                getEditableCellElementLocatorByRowColumn(rowNumber, columnName)))
-                .getText().contains(newValue);
-    }*/
+        boolean checkResult;
+        if(expectedValue.contains("Today")){
+            checkResult = getDriver().findElement(By.xpath(
+                    getEditableCellElementLocatorByRowColumn(rowNumber, columnName)))
+                    .getText().contains(expectedValue.split(",")[0].replace("Today", getCurrentDateFormated()));
+        }else{
+            checkResult = getDriver().findElement(By.xpath(
+                    getEditableCellElementLocatorByRowColumn(rowNumber, columnName)))
+                    .getText().contains(expectedValue);
+        }
+        getDriver().switchTo().defaultContent();
+        return checkResult;
+    }
 
     private void setEditableDate(String newDate){
         String[] dateSections = newDate.split(",");
         if(newDate.contains("Today")){
-            getWait().until(ExpectedConditions.elementToBeClickable(By.xpath(selectDateButtonLocator)));
+            getDriver().findElements(By.xpath(inputTimeLocator)).get(0).clear();
+            getDriver().findElements(By.xpath(inputTimeLocator)).get(0).sendKeys(getCurrentDateFormated()+Keys.TAB);
+            /*getWait().until(ExpectedConditions.elementToBeClickable(By.xpath(selectDateButtonLocator)));
             getDriver().findElement(By.xpath(selectDateButtonLocator)).click();
             getWait().until(ExpectedConditions.elementToBeClickable(By.xpath(todayButtonDatePickerLocator)));
             super.jsCLickExecution(getDriver().findElement(By.xpath(todayButtonDatePickerLocator)));
+            getDriver().findElement(By.xpath(todayButtonDatePickerLocator)).click();*/
         }
         else{
             getDriver().findElements(By.xpath(inputTimeLocator)).get(0).clear();
@@ -90,6 +107,13 @@ public class DataTableResults extends DocsResultsBody {
 
     private String getEditableButtonElementLocatorByRowColumn(String rowNumber, String columnName){
         return rowEditButtonLocator.replace("{row}", rowNumber).replace("{column}", columnName);
+    }
+
+    private String getCurrentDateFormated(){
+        DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+        Calendar cal = Calendar.getInstance();
+        return dateFormat.format(cal.getTime());
+
     }
 
 }
